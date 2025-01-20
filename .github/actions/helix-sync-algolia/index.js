@@ -62,13 +62,13 @@ async function run() {
       "webPath": `/blogs/${slug}`,
       "resourcePath": `/blogs/${slug}.md`,
       "name": `${faker.book.title()}`,
-      "lastModified": `${faker.date.anytime()..getTime()}`,
+      "lastModified": `${faker.date.anytime().getTime()}`,
       "title": `${faker.book.title()}`,
       "image": `${faker.image.url()}`,
       "description": `${faker.food.description()}`,
       "category": `${faker.food.ethnicCategory()}`,
       "author": `${faker.book.author()}`,
-      "date": `${faker.date.anytime()..getTime()}`
+      "date": `${faker.date.anytime().getTime()}`
     },
   });
 }
