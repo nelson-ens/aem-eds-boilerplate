@@ -1,0 +1,5 @@
+﻿name: Helix Sync With Algolia Index
+description: Updates the Algolia index, adding or removing resources as specified by the Adobe Helix resource-published and resource-unpublished events
+runs:
+  using: node20
+  main: index.js
