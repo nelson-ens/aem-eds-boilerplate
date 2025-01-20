@@ -1,6 +1,8 @@
 ﻿import core from '@actions/core';
 import { context } from '@actions/github';
 import { faker } from '@faker-js/faker';
+import { algoliasearch } from "algoliasearch";
+
 
 /**
  *
