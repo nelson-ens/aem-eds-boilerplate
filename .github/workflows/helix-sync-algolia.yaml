@@ -2,6 +2,7 @@ on:
   repository_dispatch:
     types:
       - resource-published
+      - resource-unpublished
 jobs:
   update-algolia-index:
     runs-on: ubuntu-latest

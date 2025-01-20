@@ -1,9 +1,8 @@
 ﻿import core from '@actions/core';
-import github, { context } from '@actions/github';
+import { context } from '@actions/github';
 
 async function run() {
-  console.log('Logging github event payload: ', JSON.stringify(github));
-  console.log('Logging context: ', JSON.stringify(context));
+  console.log('Logging github event context: ', JSON.stringify(context));
 }
 
 run().catch((error) => {
