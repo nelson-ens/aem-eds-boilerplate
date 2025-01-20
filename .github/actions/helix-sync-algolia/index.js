@@ -2,7 +2,7 @@
 import { context } from '@actions/github';
 import { faker } from '@faker-js/faker';
 import { algoliasearch } from "algoliasearch";
-
+import { createHash } from 'crypto';
 
 /**
  *
@@ -24,12 +24,17 @@ async function fetchHelixResourceMetadata(owner, repo, branch, path) {
   return await response.json();
 }
 
+function md5(str) { return createHash('md5').update(str).digest('hex') }
+
 async function run() {
   console.log('Logging github event context: ', JSON.stringify(context));
 
   const apiKey = core.getInput('algolia-api-key');
   const appId = core.getInput('algolia-application-id');
-  const indexName = core.getInput('algolia-index-name');
+  const indexName = core.getInput('algolia-index-name') || 'asdf';
+  console.log('Logging apiKey: ', apiKey);
+  console.log('Logging appId: ', appId);
+  console.log('Logging indexName: ', indexName);
 
   const client = algoliasearch(appId, apiKey);
 
@@ -58,20 +63,26 @@ async function run() {
   console.log('Logging helixResourceMetadata: ', JSON.stringify(helixResourceMetadata));
 
   const slug = faker.lorem.slug();
+  const resourcePath = `/blogs/${slug}.md`;
+
+  const record = {
+    "webPath": `/blogs/${slug}`,
+    "resourcePath": `${resourcePath}`,
+    "name": `${faker.food.dish()}`,
+    "lastModified": `${faker.date.anytime().getTime()}`,
+    "title": `${faker.food.dish()}`,
+    "image": `${faker.image.url()}`,
+    "description": `${faker.food.description()}`,
+    "category": `${faker.food.ethnicCategory()}`,
+    "author": `${faker.book.author()}`,
+    "date": `${faker.date.anytime().getTime()}`
+  };
+  console.log('Logging record: ', record);
+
   const algAddOrUpdateObjResponse = await client.addOrUpdateObject({
     indexName: indexName,
-    body: {
-      "webPath": `/blogs/${slug}`,
-      "resourcePath": `/blogs/${slug}.md`,
-      "name": `${faker.book.title()}`,
-      "lastModified": `${faker.date.anytime().getTime()}`,
-      "title": `${faker.book.title()}`,
-      "image": `${faker.image.url()}`,
-      "description": `${faker.food.description()}`,
-      "category": `${faker.food.ethnicCategory()}`,
-      "author": `${faker.book.author()}`,
-      "date": `${faker.date.anytime().getTime()}`
-    },
+    objectID: md5(resourcePath),
+    body: record
   });
 }
 
