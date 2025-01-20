@@ -55,14 +55,14 @@ async function run() {
 
   console.log('Logging helixResourceMetadata: ', JSON.stringify(helixResourceMetadata));
 
-  const slug = ${faker.lorem.slug();
+  const slug = faker.lorem.slug();
   const algAddOrUpdateObjResponse = await client.addOrUpdateObject({
     indexName: indexName,
     body: {
       "webPath": `/blogs/${slug}`,
       "resourcePath": `/blogs/${slug}.md`,
       "name": `${faker.book.title()}`,
-      "lastModified": 1737408808,
+      "lastModified": `${faker.date.anytime()..getTime()}`,
       "title": `${faker.book.title()}`,
       "image": `${faker.image.url()}`,
       "description": `${faker.food.description()}`,
