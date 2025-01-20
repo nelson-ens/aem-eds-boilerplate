@@ -1,6 +1,5 @@
 ﻿import core from '@actions/core';
 import { context } from '@actions/github';
-import { addOrUpdateRecord } from "../utils/algolia.js";
 import { fetchHelixResourceMetadata } from "../utils/eds.js";
 
 async function run() {
