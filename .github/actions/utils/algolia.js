@@ -2,7 +2,7 @@ import { algoliasearch } from 'algoliasearch';
 
 const client = algoliasearch('ALGOLIA_APPLICATION_ID', 'ALGOLIA_API_KEY');
 
-export const addOrUpdateRecord = async () => {
+async function addOrUpdateRecord() {
   const response = await client.addOrUpdateObject({
     indexName: 'indexName',
     objectID: 'uniqueID',
@@ -12,6 +12,6 @@ export const addOrUpdateRecord = async () => {
   return response;
 }
 
-export const deleteRecord = async (id) => {
+async function deleteRecord(id) {
   const response = await client.deleteObject({ indexName: 'ALGOLIA_INDEX_NAME', objectID: id });
 }
