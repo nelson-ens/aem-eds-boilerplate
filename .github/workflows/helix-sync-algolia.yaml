@@ -29,3 +29,7 @@ jobs:
 
       - name: Helix Sync With Algolia Index
         uses: ./.github/actions/helix-sync-algolia
+        with:
+          algolia-api-key: ${{ secrets.ALGOLIA_API_KEY }}
+          algolia-application-id: ${{ secrets.ALGOLIA_APPLICATION_ID }}
+          algolia-index-name: ${{ vars.ALGOLIA_INDEX_NAME }}
