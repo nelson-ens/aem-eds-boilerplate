@@ -50,7 +50,7 @@ async function run() {
     clientPayload.path
   );
 
-  console.log('Logging helixResourceMetadata: ', helixResourceMetadata);
+  console.log('Logging helixResourceMetadata: ', JSON.stringify(helixResourceMetadata));
 }
 
 run().catch((error) => {
