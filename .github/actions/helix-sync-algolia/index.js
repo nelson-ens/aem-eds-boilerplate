@@ -1,5 +1,5 @@
 ﻿import core from '@actions/core';
-import {context. github} from '@actions/github';
+import github, { context } from '@actions/github';
 
 async function run() {
   console.log('Logging github event payload: ', JSON.stringify(github));
