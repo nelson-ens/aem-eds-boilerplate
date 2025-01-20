@@ -10,21 +10,21 @@ jobs:
           echo "Status: ${{ github.event.client_payload.status }}"
           echo "Path: ${{ github.event.client_payload.path }}"
 
-#      - name: Checkout repository
-#        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies for action
+        run: |
+          cd .github/actions/helix-sync-algolia
+          npm install
 #
-#      - name: Set up Node.js
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: '20'
-#
-#      - name: Install dependencies for action
-#        run: |
-#          cd .github/actions/helix-sync-algolia
-#          npm install
-##
-##      - name: Setup tmate session
-##        uses: mxschmitt/action-tmate@v3
-#
-#      - name: Helix Sync With Algolia Index
-#        uses: ./.github/actions/helix-sync-algolia
+#      - name: Setup tmate session
+#        uses: mxschmitt/action-tmate@v3
+
+      - name: Helix Sync With Algolia Index
+        uses: ./.github/actions/helix-sync-algolia
