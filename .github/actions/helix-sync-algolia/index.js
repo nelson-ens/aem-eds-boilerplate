@@ -1,5 +1,6 @@
 ﻿import core from '@actions/core';
 import { context } from '@actions/github';
+import { faker } from '@faker-js/faker';
 
 /**
  *
@@ -28,6 +29,8 @@ async function run() {
   const appId = core.getInput('algolia-application-id');
   const indexName = core.getInput('algolia-index-name');
 
+  const client = algoliasearch(appId, apiKey);
+
   const branchName = context.ref.replace('refs/heads/', '');
   console.log('Logging branchName: ', branchName);
 
@@ -51,6 +54,23 @@ async function run() {
   );
 
   console.log('Logging helixResourceMetadata: ', JSON.stringify(helixResourceMetadata));
+
+  const slug = ${faker.lorem.slug();
+  const algAddOrUpdateObjResponse = await client.addOrUpdateObject({
+    indexName: indexName,
+    body: {
+      "webPath": `/blogs/${slug}`,
+      "resourcePath": `/blogs/${slug}.md`,
+      "name": `${faker.book.title()}`,
+      "lastModified": 1737408808,
+      "title": `${faker.book.title()}`,
+      "image": `${faker.image.url()}`,
+      "description": `${faker.food.description()}`,
+      "category": `${faker.food.ethnicCategory()}`,
+      "author": `${faker.book.author()}`,
+      "date": `${faker.date.anytime()..getTime()}`
+    },
+  });
 }
 
 run().catch((error) => {
