@@ -22,4 +22,4 @@ const fetchHelixResourceMetadata = async (owner, repo, branch, path) => {
   return response.json();
 };
 
-export default {fetchHelixResourceMetadata};
+export default fetchHelixResourceMetadata;

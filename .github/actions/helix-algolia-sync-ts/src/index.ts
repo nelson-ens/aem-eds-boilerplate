@@ -2,8 +2,8 @@ import {getInput, setFailed} from '@actions/core';
 import {context} from '@actions/github';
 import {faker} from '@faker-js/faker';
 import {algoliasearch} from 'algoliasearch';
-import {fetchHelixResourceMetadata} from './utils/edsUtils';
-import {md5} from './utils/stringUtils';
+import fetchHelixResourceMetadata from './utils/edsUtils';
+import md5 from './utils/stringUtils';
 
 const run = async () => {
   console.log('Logging github event context: ', JSON.stringify(context));
