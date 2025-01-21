@@ -21,14 +21,14 @@ jobs:
 
       - name: Install dependencies for action
         run: |
-          cd .github/actions/helix-algolia-sync-ts
+          cd actions/helix-algolia-sync-ts
           npm i
 #
 #      - name: Setup tmate session
 #        uses: mxschmitt/action-tmate@v3
 
       - name: Helix Sync With Algolia Index
-        uses: ./.github/actions/helix-algolia-sync-ts
+        uses: ./actions/helix-algolia-sync-ts
         with:
           algolia-api-key: ${{ secrets.ALGOLIA_API_KEY }}
           algolia-application-id: ${{ secrets.ALGOLIA_APPLICATION_ID }}

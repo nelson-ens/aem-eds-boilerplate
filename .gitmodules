@@ -1,0 +1,4 @@
+[submodule "actions/helix-algolia-sync-ts"]
+	path = actions/helix-algolia-sync-ts
+	url = git@github.com:nelson-ens/helix-algolia-sync-ts.git
+	branch = main
