@@ -17,18 +17,18 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install dependencies for action
-        run: |
-          cd actions/helix-algolia-sync-ts
-          npm i
-#
-#      - name: Setup tmate session
-#        uses: mxschmitt/action-tmate@v3
+#      - name: Install dependencies for action
+#        run: |
+#          cd actions/helix-algolia-sync-ts
+#          npm i
 
       - name: Helix Sync With Algolia Index
         uses: ./actions/helix-algolia-sync-ts
