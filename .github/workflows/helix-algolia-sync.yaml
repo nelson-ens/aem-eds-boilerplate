@@ -1,3 +1,4 @@
+name: Helix Algolia Sync
 on:
   repository_dispatch:
     types:
