@@ -3,9 +3,9 @@ on:
   repository_dispatch:
     types:
       - resource-published
-#      - resources-published
+      - resources-published
       - resource-unpublished
-#      - resources-unpublished
+      - resources-unpublished
 jobs:
   update-algolia-index:
     runs-on: ubuntu-latest
