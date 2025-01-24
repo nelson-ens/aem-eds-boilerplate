@@ -3,13 +3,9 @@ import { div } from '../../scripts/dom-helpers.js';
 import { loadScript } from '../../scripts/aem.js';
 import generateId from '../../scripts/stringHelper.js';
 
-const embedHubspot = async (block, {
+const embedHubspot = async ({
   jsUrl, portalId, formId, target,
 }) => {
-  console.log('logging embedHubspot', {
-    jsUrl, portalId, formId, target,
-  });
-
   await loadScript(`${jsUrl}?t=${target}`);
   hbspt.forms.create({
     portalId,
@@ -18,48 +14,30 @@ const embedHubspot = async (block, {
   });
 };
 
-const loadEmbed = async (block, {
-  jsUrl, portalId, formId, target,
+const loadEmbed = async ({
+  block, jsUrl, portalId, formId, target,
 }) => {
-  console.log('logging loadEmbed', {
-    jsUrl, portalId, formId, target,
-  });
   if (block.classList.contains('embed-is-loaded')) {
-    console.log('  contains "embed-is-loaded", exit');
     return;
   }
 
-  const EMBEDS_CONFIG = [
-    {
-      match: ['hsforms'],
-      embed: embedHubspot,
-    },
-  ];
+  await embedHubspot({
+    jsUrl, portalId, formId, target,
+  });
 
-  const config = EMBEDS_CONFIG.find((e) => e.match.some((match) => jsUrl.includes(match)));
-  if (config) {
-    await config.embed(block, {
-      jsUrl, portalId, formId, target,
-    });
-    block.classList = `block embed embed-${config.match[0]}`;
-  } else {
-    block.classList = 'block embed';
-  }
+  block.classList = 'block embed embed-hbspt';
   block.classList.add('embed-is-loaded');
 };
 
 export default async function decorate(block) {
-  console.debug('hubspot-embed', block);
   const props = block.querySelectorAll('p');
   const jsUrl = props[0].innerHTML;
   const portalId = props[1].innerHTML;
   const formId = props[2].innerHTML;
-  console.debug('logging', { jsUrl, portalId, formId });
-  const target = `hubspot-embed-${generateId(5)}`;
-  console.debug('target', { target });
+  const target = `hbspt-embed-${generateId(5)}`;
   const form = div({
     id: target,
-    class: 'hubspot-form',
+    class: 'hbspt-form',
   });
 
   block.innerHTML = '';
@@ -68,8 +46,8 @@ export default async function decorate(block) {
   const observer = new IntersectionObserver((entries) => {
     if (entries.some((e) => e.isIntersecting)) {
       observer.disconnect();
-      loadEmbed(block, {
-        jsUrl, portalId, formId, target,
+      loadEmbed({
+        block, jsUrl, portalId, formId, target,
       });
     }
   });
