@@ -11,7 +11,7 @@ const embedChilipiper = async (block, {
   });
 
   await loadScript(`${jsUrl}?t=${target}`);
-  ChiliPiper.deploy(orgId, formId, { formType });
+  ChiliPiper.deploy(orgId, `#${target}`, { formType, formIds: [`${target}`] });
 };
 
 const loadEmbed = async (block, {
