@@ -1,6 +1,7 @@
+/* global hbspt */
 import { div } from '../../scripts/dom-helpers.js';
 import { loadScript } from '../../scripts/aem.js';
-import generateId from '../../scripts/stringHelper.js'
+import generateId from '../../scripts/stringHelper.js';
 
 const embedHubspot = async (block, {
   jsUrl, portalId, formId, target,
