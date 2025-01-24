@@ -48,7 +48,7 @@ const loadEmbed = async (block, {
   block.classList.add('embed-is-loaded');
 };
 
-export default async function decorate(block, index) {
+export default async function decorate(block) {
   console.debug('hubspot-embed', block);
   const props = block.querySelectorAll('p');
   const jsUrl = props[0].innerHTML;
