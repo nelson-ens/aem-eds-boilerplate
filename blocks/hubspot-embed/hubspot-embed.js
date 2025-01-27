@@ -31,7 +31,10 @@ const loadEmbed = async ({
 
 const getBlockCfg = (block) => {
   const props = block.querySelectorAll('p');
-  const blockCfg = {};
+  const blockCfg = {
+    jsUrl: 'https://js.hsforms.net/forms/embed/v2.js',
+    portalId: '252628',
+  };  // set default
 
   for (let i = 0; i < props.length; i += 2) {
     if (props[i]?.textContent !== undefined && props[i + 1]?.textContent !== undefined) {
