@@ -29,11 +29,21 @@ const loadEmbed = async ({
   block.classList.add('embed-is-loaded');
 };
 
-export default async function decorate(block) {
+const getBlockCfg = (block) => {
   const props = block.querySelectorAll('p');
-  const jsUrl = props[0].innerHTML;
-  const portalId = props[1].innerHTML;
-  const formId = props[2].innerHTML;
+  const blockCfg = {};
+
+  for (let i = 0; i < props.length; i += 2) {
+    if (props[i]?.textContent !== undefined && props[i + 1]?.textContent !== undefined) {
+      blockCfg[props[i].textContent] = props[i + 1].textContent;
+    }
+  }
+
+  return blockCfg;
+};
+
+export default async function decorate(block) {
+  const { jsUrl, portalId, formId } = getBlockCfg(block);
   const target = `hbspt-embed-${generateId(5)}`;
   const form = div({
     id: target,
