@@ -2,6 +2,7 @@
 import { div } from '../../scripts/dom-helpers.js';
 import { loadScript } from '../../scripts/aem.js';
 import generateId from '../../scripts/stringHelper.js';
+import getBlockCfg from '../../scripts/blockHelpers.js';
 
 const embedHubspot = async ({
   jsUrl, portalId, formId, target,
@@ -29,24 +30,23 @@ const loadEmbed = async ({
   block.classList.add('embed-is-loaded');
 };
 
-const getBlockCfg = (block) => {
-  const props = block.querySelectorAll('p');
-  const blockCfg = {
+/**
+ *
+ * Hubspot Embed
+ * jsUrl = https://js.hsforms.net/forms/embed/v2.js
+ * portalId = 252628
+ * formId = 16ee4cd1-22e1-4755-af5c-698508b60675
+ *
+ * jsUrl and portalId are optional and defaults to values specified above if not present
+ * formId is required field
+ *
+ * @param {*} block
+ */
+export default async function decorate(block) {
+  const { jsUrl, portalId, formId } = getBlockCfg(block, {
     jsUrl: 'https://js.hsforms.net/forms/embed/v2.js',
     portalId: '252628',
-  };  // set default
-
-  for (let i = 0; i < props.length; i += 2) {
-    if (props[i]?.textContent !== undefined && props[i + 1]?.textContent !== undefined) {
-      blockCfg[props[i].textContent] = props[i + 1].textContent;
-    }
-  }
-
-  return blockCfg;
-};
-
-export default async function decorate(block) {
-  const { jsUrl, portalId, formId } = getBlockCfg(block);
+  });
   const target = `hbspt-embed-${generateId(5)}`;
   const form = div({
     id: target,
