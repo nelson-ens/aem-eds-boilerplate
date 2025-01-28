@@ -1,4 +1,9 @@
 /* hubspot-embed styling */
 .hubspot-embed-wrapper {
     background-color: lightpink;
+
+    div.hs_submit.hs-submit > div.actions > input {
+        background-color: blue;
+    }
 }
+

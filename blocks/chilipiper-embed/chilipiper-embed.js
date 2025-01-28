@@ -2,63 +2,61 @@
 import { div } from '../../scripts/dom-helpers.js';
 import { loadScript } from '../../scripts/aem.js';
 import generateId from '../../scripts/stringHelper.js';
+import getBlockCfg from '../../scripts/blockHelpers.js';
 
-const embedChilipiper = async (block, {
-  jsUrl, orgId, formId, formType, target,
+const embedChilipiper = async ({
+  jsUrl, domain, router, formType, target,
 }) => {
   console.log('logging embedChilipiper', {
-    jsUrl, orgId, formId, formType, target,
+    jsUrl, domain, router, formType, target,
   });
 
   await loadScript(`${jsUrl}?t=${target}`);
-  ChiliPiper.deploy(orgId, `#${target}`, { formType, formIds: [`${target}`] });
+  ChiliPiper.deploy(domain, router, { formType });
 };
 
-const loadEmbed = async (block, {
-  jsUrl, orgId, formId, formType, target,
+const loadEmbed = async ({
+  block, jsUrl, domain, router, formType, target,
 }) => {
-  console.log('logging loadEmbed', {
-    jsUrl, orgId, formId, formType,
-  });
   if (block.classList.contains('embed-is-loaded')) {
-    console.log('  contains "embed-is-loaded", exit');
     return;
   }
 
-  const EMBEDS_CONFIG = [
-    {
-      match: ['chilipiper'],
-      embed: embedChilipiper,
-    },
-  ];
+  await embedChilipiper({
+    jsUrl, domain, router, formType, target,
+  });
 
-  const config = EMBEDS_CONFIG.find((e) => e.match.some((match) => jsUrl.includes(match)));
-  if (config) {
-    await config.embed(block, {
-      jsUrl, orgId, formId, formType, target,
-    });
-    block.classList = `block embed embed-${config.match[0]}`;
-  } else {
-    block.classList = 'block embed';
-  }
+  block.classList = 'block embed embed-chilipiper';
   block.classList.add('embed-is-loaded');
 };
 
+/**
+ *
+ * Chilipiper Embed
+ * -----
+ * jsUrl = https://recordedfuture.chilipiper.com/concierge-js/cjs/concierge.js
+ * domain = recordedfuture
+ * router = demo-request
+ * formType = Hubspot
+ *
+ * jsUrl, domain are optional and defaults to values specified above if not present
+ * formId is required field
+ *
+ * @param {*} block
+ */
 export default async function decorate(block) {
-  console.debug('chilipiper-embed', block);
-  const props = block.querySelectorAll('p');
-  const jsUrl = props[0].innerHTML;
-  const orgId = props[1].innerHTML;
-  const formId = props[2].innerHTML;
-  const formType = props[3].innerHTML;
-  console.debug('logging', {
-    jsUrl, orgId, formId, formType,
+  const {
+    jsUrl, domain, router, formType,
+  } = getBlockCfg(block, {
+    jsUrl: 'https://recordedfuture.chilipiper.com/concierge-js/cjs/concierge.js',
+    domain: 'recordedfuture',
+    // router: 'demo-request',
+    // formType: 'Hubspot',
   });
   const target = `chilipiper-embed-${generateId(5)}`;
-  console.debug('target', { target });
   const cp = div({
     id: target,
-    class: 'chilipiper-embed-children',
+    class: 'chilipiper-embed-main',
   });
 
   block.innerHTML = '';
@@ -67,8 +65,8 @@ export default async function decorate(block) {
   const observer = new IntersectionObserver((entries) => {
     if (entries.some((e) => e.isIntersecting)) {
       observer.disconnect();
-      loadEmbed(block, {
-        jsUrl, orgId, formId, formType, target,
+      loadEmbed({
+        block, jsUrl, domain, router, formType, target,
       });
     }
   });
