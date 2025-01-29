@@ -16,4 +16,14 @@ module.exports = {
     'no-param-reassign': [2, { props: false }], // allow modifying properties of param
     'no-console': 0,
   },
+  overrides: [
+    {
+      files: [
+        '**/*.test.js',
+      ],
+      env: {
+        jest: true,
+      },
+    },
+  ],
 };

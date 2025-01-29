@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES6",
+    "checkJs": true,
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "updateImportsOnFileMove": "prompt",
+  "include": ["scripts/**/*","blocks/**/*"]
+}
