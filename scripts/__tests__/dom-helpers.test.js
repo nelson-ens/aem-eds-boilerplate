@@ -1,6 +1,6 @@
 // Importing required dependencies
 
-import * as domHelpers from '../dom-helpers.js';
+import * as domHelpers from '../domHelpers.js';
 
 describe('domEl', () => {
   it('should create an element with the given tag', () => {

@@ -1,5 +1,5 @@
 /* global ChiliPiper  */
-import { div } from '../../scripts/dom-helpers.js';
+import { div } from '../../scripts/domHelpers.js';
 import { loadScript } from '../../scripts/aem.js';
 import generateId from '../../scripts/stringHelper.js';
 import getBlockCfg from '../../scripts/blockHelpers.js';
