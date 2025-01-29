@@ -4,7 +4,7 @@ import { loadScript } from '../../scripts/aem.js';
 import generateId from '../../scripts/stringHelper.js';
 import getBlockCfg from '../../scripts/blockHelpers.js';
 
-const embedChilipiper = async ({
+export const embedChilipiper = async ({
   jsUrl, domain, router, formType, target,
 }) => {
   console.log('logging embedChilipiper', {
@@ -15,7 +15,7 @@ const embedChilipiper = async ({
   ChiliPiper.deploy(domain, router, { formType });
 };
 
-const loadEmbed = async ({
+export const loadEmbed = async ({
   block, jsUrl, domain, router, formType, target,
 }) => {
   if (block.classList.contains('embed-is-loaded')) {

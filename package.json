@@ -32,6 +32,7 @@
     "stylelint-config-standard": "36.0.1"
   },
   "dependencies": {
-    "@faker-js/faker": "^9.4.0"
+    "@faker-js/faker": "^9.4.0",
+    "@jest/globals": "^29.7.0"
   }
 }

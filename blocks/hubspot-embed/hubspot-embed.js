@@ -4,7 +4,7 @@ import { loadScript } from '../../scripts/aem.js';
 import generateId from '../../scripts/stringHelper.js';
 import getBlockCfg from '../../scripts/blockHelpers.js';
 
-const embedHubspot = async ({
+export const embedHubspot = async ({
   jsUrl, portalId, formId, target,
 }) => {
   await loadScript(`${jsUrl}?t=${target}`);
@@ -15,7 +15,7 @@ const embedHubspot = async ({
   });
 };
 
-const loadEmbed = async ({
+export const loadEmbed = async ({
   block, jsUrl, portalId, formId, target,
 }) => {
   if (block.classList.contains('embed-is-loaded')) {
